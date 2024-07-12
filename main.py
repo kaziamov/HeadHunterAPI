@@ -2,7 +2,7 @@ from utils.user_interaction import user_interaction
 
 
 def main():
-    pass
+    user_interaction()
 
 
 if __name__ == '__main__':
