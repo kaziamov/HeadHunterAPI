@@ -22,7 +22,7 @@ def user_interaction() -> None:
         print('5. Удалить вакансию')
         print('6. Выход\n')
 
-        user_choice = input('\nВыберите опцию: ')
+        user_choice = input('Выберите опцию: ')
         if user_choice == '1':
             data_to_print = json_storage.get_vacancies()
             print_vac(data_to_print)
@@ -44,7 +44,7 @@ def user_interaction() -> None:
 def menu_top_n_vac(json_storage: JSONVacancyStorage) -> None:
     data = json_storage.get_vacancies()
     n = input(f'\nВведите N: ')
-    if not n.isdigit() or int(n) > 0:
+    if not n.isdigit():
         print('\nНеобходимо ввести число')
         return
     sort_data = sort_vac_for_salary(data)
@@ -72,10 +72,10 @@ def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
 
 
 def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
-    salary_input = input("Введите желаемую зарплату: ")
+    salary_input = input('Введите желаемую зарплату: ')
 
     if not salary_input.isdigit():
-        print("Пожалуйста, введите корректное числовое значение зарплаты.")
+        print('Пожалуйста, введите корректное числовое значение зарплаты.')
         return
 
     desired_salary = int(salary_input)
@@ -85,7 +85,7 @@ def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
     if filtered_vacancies:
         print_vac(filtered_vacancies)
     else:
-        print("Вакансии по данной зарплате не найдены.")
+        print('Вакансии по данной зарплате не найдены.')
 
 
 def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vacancy]:
@@ -119,7 +119,7 @@ def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
 
 
 def print_vac(data: List[Vacancy]) -> None:
-    print('\nНайдены вакансии:\n')
+    print(f'\nНайдены {len(data)} вакансии:\n')
     for vac in data:
         print(vac)
 
