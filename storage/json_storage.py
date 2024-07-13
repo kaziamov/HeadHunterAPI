@@ -59,4 +59,3 @@ class JSONVacancyStorage(VacancyStorage):
     def _save_vacancies(self, vacancies: List[Vacancy]) -> None:
         with open(self.filepath, 'w', encoding='utf-8') as f:
             json.dump([asdict(vac) for vac in vacancies], f, ensure_ascii=False, indent=4)
-
