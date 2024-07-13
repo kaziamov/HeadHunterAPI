@@ -4,20 +4,6 @@ from storage.json_storage import JSONVacancyStorage
 from typing import List
 
 
-def sort_vac_for_salary(data: List[Vacancy]) -> List[Vacancy]:
-    return sorted(data, reverse=True)
-
-
-def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
-    return data[:top_n]
-
-
-def print_vac(data: List[Vacancy]) -> None:
-    print('\nНайдены вакансии:\n')
-    for vac in data:
-        print(vac)
-
-
 def user_interaction() -> None:
     hh_api = HhAPI()
     json_storage = JSONVacancyStorage()
@@ -43,7 +29,7 @@ def user_interaction() -> None:
         elif user_choice == '2':
             menu_top_n_vac(json_storage)
         elif user_choice == '3':
-            pass
+            menu_get_vac_for_salary(json_storage)
         elif user_choice == '4':
             menu_get_vac_for_keyword(json_storage)
         elif user_choice == '5':
@@ -58,8 +44,9 @@ def user_interaction() -> None:
 def menu_top_n_vac(json_storage: JSONVacancyStorage) -> None:
     data = json_storage.get_vacancies()
     n = input(f'\nВведите N: ')
-    if not n.isdigit() and int(n) > 0:
+    if not n.isdigit() or int(n) > 0:
         print('\nНеобходимо ввести число')
+        return
     sort_data = sort_vac_for_salary(data)
     top_n = top_sort_vac(sort_data, int(n))
     print_vac(top_n)
@@ -82,6 +69,61 @@ def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
         print(f'\nВакансия с id {vacancy_id} удалена.')
     else:
         print(f'\nВакансия с id {vacancy_id} не найдена.')
+
+
+def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
+    salary_input = input("Введите желаемую зарплату: ")
+
+    if not salary_input.isdigit():
+        print("Пожалуйста, введите корректное числовое значение зарплаты.")
+        return
+
+    desired_salary = int(salary_input)
+    vacancies = json_storage.get_vacancies()
+    filtered_vacancies = filter_vac_salary(vacancies, desired_salary)
+
+    if filtered_vacancies:
+        print_vac(filtered_vacancies)
+    else:
+        print("Вакансии по данной зарплате не найдены.")
+
+
+def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vacancy]:
+    filtered_vacancies = []
+
+    for vac in vacancies:
+        if vac.salary_from is None and vac.salary_to is None:
+            continue
+
+        if vac.salary_from is not None and vac.salary_to is not None:
+            if vac.salary_from <= desired_salary <= vac.salary_to:
+                filtered_vacancies.append(vac)
+
+        elif vac.salary_from is not None:
+            if vac.salary_from <= desired_salary <= vac.salary_from + 10000:
+                filtered_vacancies.append(vac)
+
+        elif vac.salary_to is not None:
+            if vac.salary_to - 10000 <= desired_salary <= vac.salary_to:
+                filtered_vacancies.append(vac)
+
+    return filtered_vacancies
+
+
+def sort_vac_for_salary(data: List[Vacancy]) -> List[Vacancy]:
+    return sorted(data, reverse=True)
+
+
+def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
+    return data[:top_n]
+
+
+def print_vac(data: List[Vacancy]) -> None:
+    print('\nНайдены вакансии:\n')
+    for vac in data:
+        print(vac)
+
+
 
 
 
