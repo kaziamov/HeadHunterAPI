@@ -40,14 +40,7 @@ def user_interaction() -> None:
             load_data = json_storage.get_vacancies()
             menu_top_n_vac(load_data)
         elif user_choice == '3':
-            keywords = input("Введите ключевые слова через пробел: ").split()
-            vacancies = json_storage.get_vacancies_by_keywords(keywords)
-            if vacancies:
-                print("Найдены вакансии:")
-                for vac in vacancies:
-                    print(vac)
-            else:
-                print("Вакансии по данным ключевым словам не найдены.")
+            menu_get_vac_for_keyword(json_storage)
         elif user_choice == '5':
             print('Пока!')
             break
@@ -64,5 +57,11 @@ def menu_top_n_vac(data):
     print_vac(top_n)
 
 
-
+def menu_get_vac_for_keyword(json_storage):
+    keywords = input("Введите ключевые слова через пробел: ").split()
+    vacancies = json_storage.get_vacancies_by_keywords(keywords)
+    if vacancies:
+        print_vac(vacancies)
+    else:
+        print("Вакансии по данным ключевым словам не найдены.")
 
