@@ -30,9 +30,14 @@ class JSONVacancyStorage(VacancyStorage):
 
     def get_vacancies(self, **criteria) -> List[Vacancy]:
         vacancies = self._load_vacancies()
-        result = vacancies
-        for key, value in criteria.items():
-            result = [vac for vac in result if getattr(vac, key) == value]
+        return vacancies
+
+    def get_vacancies_by_keywords(self, keywords: List[str]) -> List[Vacancy]:
+        vacancies = self._load_vacancies()
+        result = []
+        for vac in vacancies:
+            if any(keyword.lower() in vac.description.lower() for keyword in keywords):
+                result.append(vac)
         return result
 
     def delete_vacancy(self, vacancy_id: str) -> None:
