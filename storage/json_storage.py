@@ -40,10 +40,13 @@ class JSONVacancyStorage(VacancyStorage):
                 result.append(vac)
         return result
 
-    def delete_vacancy(self, vacancy_id: str) -> None:
+    def delete_vacancy(self, vacancy_id: str) -> bool:
         vacancies = self._load_vacancies()
-        vacancies = [vac for vac in vacancies if vac.id != vacancy_id]
-        self._save_vacancies(vacancies)
+        new_vacancies = [vac for vac in vacancies if vac.id != vacancy_id]
+        if len(new_vacancies) == len(vacancies):
+            return False
+        self._save_vacancies(new_vacancies)
+        return True
 
     def _load_vacancies(self) -> List[Vacancy]:
         try:
@@ -57,5 +60,3 @@ class JSONVacancyStorage(VacancyStorage):
         with open(self.filepath, 'w', encoding='utf-8') as f:
             json.dump([asdict(vac) for vac in vacancies], f, ensure_ascii=False, indent=4)
 
-    def delete_all_vacancies(self) -> None:
-        self._save_vacancies([])
