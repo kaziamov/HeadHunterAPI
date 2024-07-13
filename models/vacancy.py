@@ -48,6 +48,7 @@ class Vacancy:
             if not item['salary']['currency'] == 'RUR':
                 continue
             currency = item['salary']['currency']
+            description = item['snippet']['requirement'] if item['snippet'] else ''
             vacancy = cls(
                 id=item['id'],
                 name=item['name'],
@@ -55,7 +56,7 @@ class Vacancy:
                 salary_from=salary_from,
                 salary_to=salary_to,
                 currency=currency,
-                description=item['snippet']['requirement'] if item['snippet'] else ''
+                description=description if description else ''  # Ensure description is not None
             )
             vacancies.append(vacancy)
         return vacancies
