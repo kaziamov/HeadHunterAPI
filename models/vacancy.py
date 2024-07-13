@@ -60,3 +60,11 @@ class Vacancy:
             vacancies.append(vacancy)
         return vacancies
 
+    def __str__(self):
+        return (f'{self.id} | {self.name}\n'
+                f'{self.url}\n'
+                f'{self.description}\n'
+                f'{self.salary_from if self.salary_from else "Не указана"} - '
+                f'{self.salary_to if self.salary_to else "Не указана"} '
+                f'{self.currency}\n')
+
