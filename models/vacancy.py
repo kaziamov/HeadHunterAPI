@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List, Optional
 
 
 @dataclass
@@ -8,10 +9,10 @@ class Vacancy:
     url: str
     currency: str
     description: str
-    salary_from: int = None
-    salary_to: int = None
+    salary_from: Optional[int] = None
+    salary_to: Optional[int] = None
 
-    def __lt__(self, other):
+    def __lt__(self, other: 'Vacancy') -> bool:
         if not isinstance(other, Vacancy):
             return NotImplemented
 
@@ -29,7 +30,7 @@ class Vacancy:
 
         return self_avg_salary < other_avg_salary
 
-    def _average_salary(self):
+    def _average_salary(self) -> float:
         if self.salary_from is not None and self.salary_to is not None:
             return (self.salary_from + self.salary_to) / 2
         elif self.salary_from is not None:
@@ -40,7 +41,7 @@ class Vacancy:
             return float('-inf')
 
     @classmethod
-    def cast_to_object_list(cls, data: list):
+    def cast_to_object_list(cls, data: List[dict]) -> List['Vacancy']:
         vacancies = []
         for item in data:
             salary_from = item['salary']['from']
@@ -61,7 +62,7 @@ class Vacancy:
             vacancies.append(vacancy)
         return vacancies
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f'{self.id} | {self.name}\n'
                 f'{self.url}\n'
                 f'{self.description}\n'
