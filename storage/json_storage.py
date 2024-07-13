@@ -8,7 +8,7 @@ import json
 
 class VacancyStorage(ABC):
     @abstractmethod
-    def add_vacancy(self, vacancy: Vacancy) -> None:
+    def add_vacancies(self, vacancy: Vacancy) -> None:
         pass
 
     @abstractmethod
@@ -24,8 +24,8 @@ class JSONVacancyStorage(VacancyStorage):
     def __init__(self, filepath: str = OPERATION_PATH):
         self.filepath = filepath
 
-    def add_vacancy(self, vacancies: List[Vacancy]) -> None:
-        print(f'Сохранение {len(vacancies)} вакансий в файл')
+    def add_vacancies(self, vacancies: List[Vacancy]) -> None:
+        print(f'\nСохранение {len(vacancies)} вакансий в файл')
         self._save_vacancies(vacancies)
 
     def get_vacancies(self) -> List[Vacancy]:

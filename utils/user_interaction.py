@@ -12,7 +12,7 @@ def user_interaction() -> None:
     search_query = input('Введите поисковый запрос: ')
     data = hh_api.get_vacancies(search_query)
     vac_data = Vacancy.cast_to_object_list(data)
-    json_storage.add_vacancy(vac_data)
+    json_storage.add_vacancies(vac_data)
 
     while True:
         print('\n1. Получить все вакансии из файла')
