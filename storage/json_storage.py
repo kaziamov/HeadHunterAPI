@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 from models.vacancy import Vacancy
-from dataclasses import asdict, is_dataclass
+from dataclasses import asdict
 from config import OPERATION_PATH
 import json
 
@@ -12,7 +12,7 @@ class VacancyStorage(ABC):
         pass
 
     @abstractmethod
-    def get_vacancies(self, **criteria) -> List[Vacancy]:
+    def get_vacancies(self) -> List[Vacancy]:
         pass
 
     @abstractmethod
@@ -28,7 +28,7 @@ class JSONVacancyStorage(VacancyStorage):
         print(f'Сохранение {len(vacancies)} вакансий в файл')
         self._save_vacancies(vacancies)
 
-    def get_vacancies(self, **criteria) -> List[Vacancy]:
+    def get_vacancies(self) -> List[Vacancy]:
         vacancies = self._load_vacancies()
         return vacancies
 
@@ -56,3 +56,6 @@ class JSONVacancyStorage(VacancyStorage):
     def _save_vacancies(self, vacancies: List[Vacancy]) -> None:
         with open(self.filepath, 'w', encoding='utf-8') as f:
             json.dump([asdict(vac) for vac in vacancies], f, ensure_ascii=False, indent=4)
+
+    def delete_all_vacancies(self) -> None:
+        self._save_vacancies([])
