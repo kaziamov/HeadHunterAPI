@@ -50,6 +50,8 @@ def menu_top_n_vac(json_storage: JSONVacancyStorage) -> None:
     sort_data = sort_vac_for_salary(data)
     top_n = top_sort_vac(sort_data, int(n))
     print_vac(top_n)
+    if top_n:
+        overwrite_file(json_storage, top_n)
 
 
 def menu_get_vac_for_keyword(json_storage: JSONVacancyStorage) -> None:
@@ -57,6 +59,7 @@ def menu_get_vac_for_keyword(json_storage: JSONVacancyStorage) -> None:
     vacancies = json_storage.get_vacancies_by_keywords(keywords)
     if vacancies:
         print_vac(vacancies)
+        overwrite_file(json_storage, vacancies)
     else:
         print('\nВакансии по данным ключевым словам не найдены')
 
@@ -84,6 +87,7 @@ def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
 
     if filtered_vacancies:
         print_vac(filtered_vacancies)
+        overwrite_file(json_storage, filtered_vacancies)
     else:
         print('Вакансии по данной зарплате не найдены')
 
@@ -122,6 +126,14 @@ def print_vac(data: List[Vacancy]) -> None:
     for vac in data:
         print(vac)
     print(f'\nНайдены {len(data)} вакансии\n')
+
+
+def overwrite_file(json_storage: JSONVacancyStorage, data: List[Vacancy]):
+    user_choice = input('Сохранить в файле только полученные вакансии? (Д/Н)  ').lower()
+    if user_choice == 'д':
+        json_storage.add_vacancies(data)
+
+
 
 
 
