@@ -13,6 +13,7 @@ def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
 
 
 def print_vac(data: List[Vacancy]) -> None:
+    print("Найдены вакансии:")
     for vac in data:
         print(vac)
 
@@ -38,6 +39,15 @@ def user_interaction() -> None:
         if user_choice == '1':
             load_data = json_storage.get_vacancies()
             menu_top_n_vac(load_data)
+        elif user_choice == '3':
+            keywords = input("Введите ключевые слова через пробел: ").split()
+            vacancies = json_storage.get_vacancies_by_keywords(keywords)
+            if vacancies:
+                print("Найдены вакансии:")
+                for vac in vacancies:
+                    print(vac)
+            else:
+                print("Вакансии по данным ключевым словам не найдены.")
         elif user_choice == '5':
             print('Пока!')
             break
@@ -46,15 +56,13 @@ def user_interaction() -> None:
 
 
 def menu_top_n_vac(data):
-    while True:
-        n = input(f'\nВведите N: ')
-        if not n.isdigit() and int(n) > 0:
-            print('Необходимо ввести число')
-            continue
-        sort_data = sort_vac_for_salary(data)
-        top_n = top_sort_vac(sort_data, int(n))
-        print_vac(top_n)
-        break
+    n = input(f'\nВведите N: ')
+    if not n.isdigit() and int(n) > 0:
+        print('Необходимо ввести число')
+    sort_data = sort_vac_for_salary(data)
+    top_n = top_sort_vac(sort_data, int(n))
+    print_vac(top_n)
+
 
 
 
