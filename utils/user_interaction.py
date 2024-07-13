@@ -66,16 +66,16 @@ def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
     print_vac(vac_for_del)
     vacancy_id = input('Введите id вакансии, которую хотите удалить: ')
     if json_storage.delete_vacancy(vacancy_id):
-        print(f'\nВакансия с id {vacancy_id} удалена.')
+        print(f'\nВакансия с id {vacancy_id} удалена')
     else:
-        print(f'\nВакансия с id {vacancy_id} не найдена.')
+        print(f'\nВакансия с id {vacancy_id} не найдена')
 
 
 def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
     salary_input = input('Введите желаемую зарплату: ')
 
     if not salary_input.isdigit():
-        print('Пожалуйста, введите корректное числовое значение зарплаты.')
+        print('Пожалуйста, введите корректное числовое значение зарплаты')
         return
 
     desired_salary = int(salary_input)
@@ -85,7 +85,7 @@ def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
     if filtered_vacancies:
         print_vac(filtered_vacancies)
     else:
-        print('Вакансии по данной зарплате не найдены.')
+        print('Вакансии по данной зарплате не найдены')
 
 
 def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vacancy]:
@@ -119,9 +119,9 @@ def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
 
 
 def print_vac(data: List[Vacancy]) -> None:
-    print(f'\nНайдены {len(data)} вакансии:\n')
     for vac in data:
         print(vac)
+    print(f'\nНайдены {len(data)} вакансии\n')
 
 
 
