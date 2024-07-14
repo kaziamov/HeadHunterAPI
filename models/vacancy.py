@@ -55,7 +55,7 @@ cast_to_object_list преобразует список словарей с да
         for item in data:
             salary_from = item['salary']['from']
             salary_to = item['salary']['to']
-            if not item['salary']['currency'] == 'RUR':
+            if item['salary']['currency'] != 'RUR':
                 continue
             currency = item['salary']['currency']
             description = item['snippet']['requirement'] if item['snippet'] else ''
