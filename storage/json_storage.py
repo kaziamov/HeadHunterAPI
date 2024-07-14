@@ -23,10 +23,10 @@ class VacancyStorage(ABC):
 class JSONVacancyStorage(VacancyStorage):
     """
 Класс для работы с JSON файлом. OPERATION_PATH - место хранения рабочего файла
-add_vacancies - сохранение всех вакансий в файл
+add_vacancies - сохранить все вакансии в файл
 get_vacancies - получить все вакансии из файла
 get_vacancies_by_keywords - получеть все вакансии из файла по ключевому слову в атрибуте description
-delete_vacancy - удаление вакансии из файла по id
+delete_vacancy - удаление вакансии из файла по атрибуту id
 _load_vacancies и _save_vacancies - методы для сериализации и десериализации json
 
     """
