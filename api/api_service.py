@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import List
 import requests
 
 
 class API(ABC):
     @abstractmethod
-    def get_vacancies(self, query: str) -> list:
+    def get_vacancies(self, search_query: str) -> List[dict]:
         pass
 
 
@@ -17,7 +18,7 @@ class HhAPI(API):
     """
     BASE_URL = "https://api.hh.ru/vacancies"
 
-    def get_vacancies(self, search_query: str) -> list:
+    def get_vacancies(self, search_query: str) -> List[dict]:
         params = {
             "text": search_query,
             "area": 1,
