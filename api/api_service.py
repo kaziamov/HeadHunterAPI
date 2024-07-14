@@ -23,7 +23,12 @@ class HhAPI(API):
             "text": search_query,
             "area": 1,
             "per_page": 100,
-            'only_with_salary': 'true',
+            'only_with_salary': True,
         }
-        response = requests.get(url=self.BASE_URL, params=params)
-        return response.json()['items']
+        try:
+            response = requests.get(url=self.BASE_URL, params=params)
+            response.raise_for_status()
+            return response.json()['items']
+        except requests.RequestException as e:
+            print(f"Ошибка при получении данных: {e}")
+            return []
