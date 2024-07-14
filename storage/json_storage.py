@@ -28,6 +28,7 @@ get_vacancies - получить все вакансии из файла
 get_vacancies_by_keywords - получеть все вакансии из файла по ключевому слову в атрибуте description
 delete_vacancy - удаление вакансии из файла по атрибуту id
 _load_vacancies и _save_vacancies - методы для сериализации и десериализации json
+    json.dump([asdict(vac) for vac in vacancies] храним в файле только словари
 
     """
     def __init__(self, filepath: str = OPERATION_PATH):
