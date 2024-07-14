@@ -16,8 +16,6 @@ def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vac
     filtered_vacancies = []
 
     for vac in vacancies:
-        if vac.salary_from is None and vac.salary_to is None:
-            continue
 
         if vac.salary_from is not None and vac.salary_to is not None:
             if vac.salary_from <= desired_salary <= vac.salary_to:
