@@ -1,7 +1,8 @@
 from api.api_service import HhAPI
 from models.vacancy import Vacancy
 from storage.json_storage import JSONVacancyStorage
-from utils.user_funcs import filter_vac_salary, sort_vac_for_salary, top_sort_vac, print_vac, overwrite_file
+from utils.user_funcs import (filter_vac_salary, sort_vac_for_salary,
+                              top_sort_vac, print_vac, overwrite_file)
 
 
 def user_interaction() -> None:
