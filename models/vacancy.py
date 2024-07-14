@@ -66,7 +66,7 @@ cast_to_object_list преобразует список словарей с да
                 salary_from=salary_from,
                 salary_to=salary_to,
                 currency=currency,
-                description=description if description else ''  # Ensure description is not None
+                description=description if description else ''
             )
             vacancies.append(vacancy)
         return vacancies
