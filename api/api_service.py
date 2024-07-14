@@ -25,10 +25,6 @@ class HhAPI(API):
             "per_page": 100,
             'only_with_salary': True,
         }
-        try:
-            response = requests.get(url=self.BASE_URL, params=params)
-            response.raise_for_status()
-            return response.json()['items']
-        except requests.RequestException as e:
-            print(f"Ошибка при получении данных: {e}")
-            return []
+        response = requests.get(url=self.BASE_URL, params=params)
+        return response.json()['items']
+
