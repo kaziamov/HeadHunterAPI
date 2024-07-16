@@ -6,6 +6,10 @@ from utils.user_funcs import (filter_vac_salary, sort_vac_for_salary,
 
 
 def user_interaction() -> None:
+    """
+Основная функция взаимодействия с пользователем. Создание экземпляров класса Vacancy и коннектора для хранилища
+    JSONVacancyStorage. В зависимости от выбора пользователя переходит к запуску дополнительных функций взаимодействия с пользователем
+    """
     hh_api = HhAPI()
     json_storage = JSONVacancyStorage()
 
@@ -43,6 +47,10 @@ def user_interaction() -> None:
 
 
 def menu_top_n_vac(json_storage: JSONVacancyStorage) -> None:
+    """
+Дополнительная фунция взаимодесвтия с пользователем при выборе 'Вывод топ N вакансий по зарплате'
+    Сортирует вакансии по убыванию зарплаты выводит их топ N, введенный пользователем
+    """
     data = json_storage.get_vacancies()
     n = input(f'\nВведите N: ')
     if not n.isdigit():
@@ -56,6 +64,10 @@ def menu_top_n_vac(json_storage: JSONVacancyStorage) -> None:
 
 
 def menu_get_vac_for_keyword(json_storage: JSONVacancyStorage) -> None:
+    """
+Дополнительная функция для взаимодествия с пользователем при выборе 'Получить вакансии с ключевым словом в описании'
+    Выводит вакансии по ключевому слову введенном пользователем из атрибута Vacancy.description
+    """
     keywords = input('\nВведите ключевые слова через пробел: ').split()
     vacancies = json_storage.get_vacancies_by_keywords(keywords)
     if vacancies:
@@ -66,6 +78,10 @@ def menu_get_vac_for_keyword(json_storage: JSONVacancyStorage) -> None:
 
 
 def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
+    """
+Дополнительная функция для взаимодествия с пользователем при выборе 'Удалить вакансию'
+    Удаляет вакансию по введенному пользователем id (атрибут Vacancy.id) с выводом сообщения об удачном удалении
+    """
     vac_for_del = json_storage.get_vacancies()
     print_vac(vac_for_del)
     vacancy_id = input('Введите id вакансии, которую хотите удалить: ')
@@ -76,6 +92,10 @@ def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
 
 
 def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
+    """
+Дополнительная функция для взаимодествия с пользователем при выборе 'Получить вакансии по желаемой зарплате'
+    Выводит вакансии по введенной пользователем зарплаты с испотзованием функции (filter_vac_salary)
+    """
     salary_input = input('Введите желаемую зарплату: ')
 
     if not salary_input.isdigit():
