@@ -22,7 +22,12 @@ class VacancyStorage(ABC):
 
 class JSONVacancyStorage(VacancyStorage):
     """
-Класс для работы с JSON файлом. OPERATION_PATH - хранения рабочего файла
+    Класс JSONVacancyStorage предоставляет функциональность для работы с JSON файлами,
+    используемых для хранения данных о вакансиях. Этот класс реализует интерфейс VacancyStorage,
+    определяющий базовые операции с вакансиями: добавление, получение, поиск по ключевым словам и удаление.
+
+    Атрибуты:
+    - __filepath (str): Путь к файлу JSON, в котором хранятся данные о вакансиях. По умолчанию используется значение переменной OPERATION_PATH.
     """
     def __init__(self, filepath: str = OPERATION_PATH):
         self.__filepath = filepath
