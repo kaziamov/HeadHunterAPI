@@ -5,13 +5,16 @@ from typing import List, Optional
 @dataclass
 class Vacancy:
     """
-Класс для представления вакансии.
-Сравнение зарплат между вакансиями происходит с использованием метода _average_salary().
-Если salary_from или salary_to is None, то зарплата считается равной одному из известных атрибутов.
-Если указаны оба атрибута, то зарплата принимается равной среднему значению вилки.
-cast_to_object_list преобразует список словарей с данными вакансий в список объектов Vacancy,
-так же добавлена проверка на currency == 'RUR'.
-Метод __str__ если salary_from или salary_to is None, то в печать идет 'Не указана'
+    Класс Vacancy представляет собой модель данных для описания вакансий на рынке труда.
+
+    Атрибуты:
+    - id (str): Уникальный идентификатор вакансии.
+    - name (str): Название вакансии.
+    - url (str): URL страницы вакансии.
+    - currency (str): Валюта зарплаты.
+    - description (str): Описание вакансии.
+    - salary_from (Optional[int]): Нижняя граница зарплатного диапазона. Может быть None.
+    - salary_to (Optional[int]): Верхняя граница зарплатного диапазона. Может быть None.
     """
     id: str
     name: str
@@ -22,6 +25,7 @@ cast_to_object_list преобразует список словарей с да
     salary_to: Optional[int] = None
 
     def __lt__(self, other: 'Vacancy') -> bool:
+        """Метод для сравнения зарплат"""
         if not isinstance(other, Vacancy):
             return NotImplemented
 
@@ -40,6 +44,10 @@ cast_to_object_list преобразует список словарей с да
         return self_avg_salary < other_avg_salary
 
     def _average_salary(self) -> float:
+        """ Вспомогательный метод для сравнения зарплат
+            Если salary_from или salary_to is None, то зарплата считается равной одному из известных атрибутов.
+            Если указаны оба атрибута, то зарплата принимается равной среднему значению вилки.
+            cast_to_object_list преобразует список словарей с данными вакансий в список объектов Vacancy,"""
         if self.salary_from is not None and self.salary_to is not None:
             return (self.salary_from + self.salary_to) / 2
         elif self.salary_from is not None:
@@ -51,6 +59,11 @@ cast_to_object_list преобразует список словарей с да
 
     @classmethod
     def cast_to_object_list(cls, data: List[dict]) -> List['Vacancy']:
+        """Преобразует список словарей, содержащих данные о вакансиях, в список объектов класса Vacancy.
+        Этот метод проходит через каждый элемент списка словарей, извлекает необходимые данные,
+        создает новый экземпляр класса Vacancy с этими данными и добавляет его в итоговый список.
+        Валидация данных
+        """
         vacancies = []
         for item in data:
             salary_from = item['salary']['from']
@@ -72,6 +85,7 @@ cast_to_object_list преобразует список словарей с да
         return vacancies
 
     def __str__(self) -> str:
+        """Метод для представляения вакансий при печати"""
         return (f'{self.id} | {self.name}\n'
                 f'{self.url}\n'
                 f'{self.description}\n'
