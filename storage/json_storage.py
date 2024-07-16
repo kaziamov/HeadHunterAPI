@@ -22,27 +22,28 @@ class VacancyStorage(ABC):
 
 class JSONVacancyStorage(VacancyStorage):
     """
-Класс для работы с JSON файлом. OPERATION_PATH - хранения рабочего файла
-add_vacancies - сохранить все вакансии в файл
-get_vacancies - получить все вакансии из файла
-get_vacancies_by_keywords - получеть все вакансии из файла по ключевому слову в атрибуте description
-delete_vacancy - удаление вакансии из файла по атрибуту id
-_load_vacancies и _save_vacancies - методы для сериализации и десериализации json
-    json.dump([asdict(vac) for vac in vacancies] храним в файле только словари
+    Класс JSONVacancyStorage предоставляет функциональность для работы с JSON файлами,
+    используемых для хранения данных о вакансиях. Этот класс реализует интерфейс VacancyStorage,
+    определяющий базовые операции с вакансиями: добавление, получение, поиск по ключевым словам и удаление.
 
+    Атрибуты:
+    - __filepath (str): Путь к файлу JSON, в котором хранятся данные о вакансиях. По умолчанию используется значение переменной OPERATION_PATH.
     """
     def __init__(self, filepath: str = OPERATION_PATH):
-        self.filepath = filepath
+        self.__filepath = filepath
 
     def add_vacancies(self, vacancies: List[Vacancy]) -> None:
+        """Сохранить все вакансии в файл"""
         print(f'\nСохранение {len(vacancies)} вакансий в файл')
         self._save_vacancies(vacancies)
 
     def get_vacancies(self) -> List[Vacancy]:
+        """Получить все вакансии из файла"""
         vacancies = self._load_vacancies()
         return vacancies
 
     def get_vacancies_by_keywords(self, keywords: List[str]) -> List[Vacancy]:
+        """Получеть все вакансии из файла по ключевому слову в атрибуте description"""
         vacancies = self._load_vacancies()
         result = []
         for vac in vacancies:
@@ -51,6 +52,7 @@ _load_vacancies и _save_vacancies - методы для сериализаци�
         return result
 
     def delete_vacancy(self, vacancy_id: str) -> bool:
+        """Удалить вакансию из файла по атрибуту id"""
         vacancies = self._load_vacancies()
         new_vacancies = [vac for vac in vacancies if vac.id != vacancy_id]
         if len(new_vacancies) == len(vacancies):
@@ -59,13 +61,15 @@ _load_vacancies и _save_vacancies - методы для сериализаци�
         return True
 
     def _load_vacancies(self) -> List[Vacancy]:
+        """Метод для десериализации json"""
         try:
-            with open(self.filepath, 'r', encoding='utf-8') as f:
+            with open(self.__filepath, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 return [Vacancy(**item) for item in data]
         except (FileNotFoundError, json.JSONDecodeError):
             return []
 
     def _save_vacancies(self, vacancies: List[Vacancy]) -> None:
-        with open(self.filepath, 'w', encoding='utf-8') as f:
+        """Метод для методы для сериализации JSON"""
+        with open(self.__filepath, 'w', encoding='utf-8') as f:
             json.dump([asdict(vac) for vac in vacancies], f, ensure_ascii=False, indent=4)

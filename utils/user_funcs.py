@@ -33,20 +33,24 @@ def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vac
 
 
 def sort_vac_for_salary(data: List[Vacancy]) -> List[Vacancy]:
+    """Функция сортировки для вакансий по убыванию"""
     return sorted(data, reverse=True)
 
 
 def top_sort_vac(data: List[Vacancy], top_n: int) -> List[Vacancy]:
+    """Функция возвращает 5 первых элементов вакансий"""
     return data[:top_n]
 
 
 def print_vac(data: List[Vacancy]) -> None:
+    """Функция для печати найденных вакансий вакансий"""
     for vac in data:
         print(vac)
     print(f'\nНайдены {len(data)} вакансии\n')
 
 
 def overwrite_file(json_storage: JSONVacancyStorage, data: List[Vacancy]) -> None:
+    """Функция взаимодействия с пользователем, которая запускает процесс записи вакансий в файл"""
     user_choice = input('Сохранить в файле только полученные вакансии? (Д/Н)  ').lower()
     if user_choice == 'д':
         json_storage.add_vacancies(data)
