@@ -66,10 +66,13 @@ class Vacancy:
         """
         vacancies = []
         for item in data:
+            if 'salary' not in item or 'snippet' not in item or item['salary']['currency'] != 'RUR':
+                continue
+            if 'id' not in item or 'name' not in item or 'alternate_url' not in item:
+                continue
+
             salary_from = item['salary']['from']
             salary_to = item['salary']['to']
-            if item['salary']['currency'] != 'RUR':
-                continue
             currency = item['salary']['currency']
             description = item['snippet']['requirement'] if item['snippet'] else ''
             vacancy = cls(
