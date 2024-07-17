@@ -27,7 +27,8 @@ class JSONVacancyStorage(VacancyStorage):
     определяющий базовые операции с вакансиями: добавление, получение, поиск по ключевым словам и удаление.
 
     Атрибуты:
-    - __filepath (str): Путь к файлу JSON, в котором хранятся данные о вакансиях. По умолчанию используется значение переменной OPERATION_PATH.
+    - __filepath (str): Путь к файлу JSON, в котором хранятся данные о вакансиях.
+    По умолчанию используется значение переменной OPERATION_PATH.
     """
     def __init__(self, filepath: str = OPERATION_PATH):
         self.__filepath = filepath
@@ -70,6 +71,6 @@ class JSONVacancyStorage(VacancyStorage):
             return []
 
     def _save_vacancies(self, vacancies: List[Vacancy]) -> None:
-        """Метод для методы для сериализации JSON"""
+        """Метод для сериализации JSON"""
         with open(self.__filepath, 'w', encoding='utf-8') as f:
             json.dump([asdict(vac) for vac in vacancies], f, ensure_ascii=False, indent=4)

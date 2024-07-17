@@ -8,7 +8,8 @@ from utils.user_funcs import (filter_vac_salary, sort_vac_for_salary,
 def user_interaction() -> None:
     """
     Основная функция взаимодействия с пользователем. Создание экземпляров класса Vacancy и коннектора для хранилища
-    JSONVacancyStorage. В зависимости от выбора пользователя переходит к запуску дополнительных функций взаимодействия с пользователем
+    JSONVacancyStorage. В зависимости от выбора пользователя переходит к запуску
+    дополнительных функций взаимодействия с пользователем
     """
     hh_api = HhAPI()
     json_storage = JSONVacancyStorage()
@@ -94,7 +95,7 @@ def menu_delete_vacancy(json_storage: JSONVacancyStorage) -> None:
 def menu_get_vac_for_salary(json_storage: JSONVacancyStorage) -> None:
     """
     Дополнительная функция для взаимодествия с пользователем при выборе 'Получить вакансии по желаемой зарплате'
-    Выводит вакансии по введенной пользователем зарплаты с испотзованием функции (filter_vac_salary)
+    Выводит вакансии по введенной пользователем зарплаты с вызовом функции filter_vac_salary
     """
     salary_input = input('Введите желаемую зарплату: ')
 

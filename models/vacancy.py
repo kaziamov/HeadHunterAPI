@@ -45,8 +45,6 @@ class Vacancy:
 
     def _average_salary(self) -> float:
         """ Вспомогательный метод для сравнения зарплат
-            Если salary_from или salary_to is None, то зарплата считается равной одному из известных атрибутов.
-            Если указаны оба атрибута, то зарплата принимается равной среднему значению вилки"""
         if self.salary_from is not None and self.salary_to is not None:
             return (self.salary_from + self.salary_to) / 2
         elif self.salary_from is not None:
@@ -65,10 +63,13 @@ class Vacancy:
         """
         vacancies = []
         for item in data:
+            if 'salary' not in item or 'snippet' not in item or item['salary']['currency'] != 'RUR':
+                continue
+            if 'id' not in item or 'name' not in item or 'alternate_url' not in item:
+                continue
+
             salary_from = item['salary']['from']
             salary_to = item['salary']['to']
-            if item['salary']['currency'] != 'RUR':
-                continue
             currency = item['salary']['currency']
             description = item['snippet']['requirement'] if item['snippet'] else ''
             vacancy = cls(
@@ -84,7 +85,7 @@ class Vacancy:
         return vacancies
 
     def __str__(self) -> str:
-        """Метод для представляения вакансий при печати"""
+        """Метод для представляния вакансий при печати"""
         return (f'{self.id} | {self.name}\n'
                 f'{self.url}\n'
                 f'{self.description}\n'

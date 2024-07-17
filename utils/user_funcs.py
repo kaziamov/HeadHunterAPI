@@ -5,13 +5,13 @@ from storage.json_storage import JSONVacancyStorage
 
 def filter_vac_salary(vacancies: List[Vacancy], desired_salary: int) -> List[Vacancy]:
     """
-Функция фильтрации списка экземпляров Vacancy на основе введенной от пользователя зарплаты (desired_salary)
-Если в экзмепляры Vacancy определены оба атрибута (salary_from, salary_to)
-    то происходит фильтрация по условию salary_from <= desired_salary <= salary_to
-Если в экзмепляре Vacancy определен только один из атрибутов (salary_from or salary_to)
-    то происходит фильтрация по условию
-    desired_salary в диапазоне от (непустой атрибут - 10000) до (непустой атрибут + 10000)
-    непустой атрибут (salary_from or salary_to)
+    Функция фильтрации списка экземпляров Vacancy на основе введенной от пользователя зарплаты (desired_salary)
+    Если в экзмепляры Vacancy определены оба атрибута (salary_from, salary_to)
+        то происходит фильтрация по условию salary_from <= desired_salary <= salary_to
+    Если в экзмепляре Vacancy определен только один из атрибутов (salary_from or salary_to)
+        то происходит фильтрация по условию
+        desired_salary в диапазоне от (непустой атрибут - 10000) до (непустой атрибут + 10000)
+        непустой атрибут (salary_from or salary_to)
     """
     filtered_vacancies = []
 

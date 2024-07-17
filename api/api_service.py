@@ -23,7 +23,9 @@ class HhAPI(API):
 
     def get_vacancies(self, search_query: str) -> List[dict]:
         """Отправляет GET-запрос к API hh.ru для получения списка вакансий,
-        соответствующих заданному критерию поиска.
+        соответствующих заданному критерию поиска
+        - 'only_with_salary': True - только с указанеим зарплат
+        - "area": 1 - регион поиска ваксний Москва
         """
         params = {
             "text": search_query,
