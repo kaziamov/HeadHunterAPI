@@ -45,6 +45,8 @@ class Vacancy:
 
     def _average_salary(self) -> float:
         """ Вспомогательный метод для сравнения зарплат
+        Если известен только один атрибут (salary_From, salary_to) то зарплата считается равной известному атрибуту
+        Если изветсны оба атрибута, то зарплата считается равной среднему значению вилки"""
         if self.salary_from is not None and self.salary_to is not None:
             return (self.salary_from + self.salary_to) / 2
         elif self.salary_from is not None:
