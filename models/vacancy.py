@@ -45,9 +45,6 @@ class Vacancy:
 
     def _average_salary(self) -> float:
         """ Вспомогательный метод для сравнения зарплат
-        Если salary_from или salary_to is None, то зарплата считается равной одному из известных атрибутов.
-        Если указаны оба атрибута, то зарплата принимается равной среднему значению вилки.
-        cast_to_object_list преобразует список словарей с данными вакансий в список объектов Vacancy,"""
         if self.salary_from is not None and self.salary_to is not None:
             return (self.salary_from + self.salary_to) / 2
         elif self.salary_from is not None:
