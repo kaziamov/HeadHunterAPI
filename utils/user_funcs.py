@@ -52,5 +52,5 @@ def print_vac(data: List[Vacancy]) -> None:
 def overwrite_file(json_storage: JSONVacancyStorage, data: List[Vacancy]) -> None:
     """Функция взаимодействия с пользователем, которая запускает процесс записи вакансий в файл"""
     user_choice = input('Сохранить в файле только полученные вакансии? (Д/Н)  ').lower()
-    if user_choice == 'д':
+    if user_choice and user_choice[0] in ['д', 'y']:
         json_storage.add_vacancies(data)
