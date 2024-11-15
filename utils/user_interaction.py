@@ -1,4 +1,4 @@
-from api.api_service import HhAPI
+from api.api_service import HhAPI, HHSearch
 from models.vacancy import Vacancy
 from storage.json_storage import JSONVacancyStorage
 from utils.user_funcs import (filter_vac_salary, sort_vac_for_salary,
@@ -11,7 +11,7 @@ def user_interaction() -> None:
     JSONVacancyStorage. В зависимости от выбора пользователя переходит к запуску
     дополнительных функций взаимодействия с пользователем
     """
-    hh_api = HhAPI()
+    hh_api = HHSearch()
     json_storage = JSONVacancyStorage()
 
     print('Добро пожаловать!')
