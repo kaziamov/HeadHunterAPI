@@ -1,5 +1,11 @@
+import re
 from dataclasses import dataclass
 from typing import List, Optional
+
+
+def remove_html_tags(text):
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
 
 
 @dataclass
@@ -81,7 +87,7 @@ class Vacancy:
                 salary_from=salary_from,
                 salary_to=salary_to,
                 currency=currency,
-                description=description if description else ''
+                description=remove_html_tags(description) if description else ''
             )
             vacancies.append(vacancy)
         return vacancies
