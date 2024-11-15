@@ -7,10 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+requests = "^2.32.3"
 
 
 [tool.poetry.group.dev.dependencies]
-requests = "^2.32.3"
 pytest = "^8.2.2"
 pytest-cov = "^5.0.0"
 
